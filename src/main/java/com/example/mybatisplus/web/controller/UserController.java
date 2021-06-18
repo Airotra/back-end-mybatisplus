@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.UserService;
 import com.example.mybatisplus.model.domain.User;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -74,6 +77,16 @@ public class UserController {
     public JsonResponse create(User  user) throws Exception {
         userService.save(user);
         return JsonResponse.success(null);
+    }
+
+    @RequestMapping("/userLogin")
+    @ResponseBody
+    public JsonResponse login(User user, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(User::getPhoneNumber, user.getPhoneNumber()).eq(User::getPassword, user.getPassword());
+        User one = userService.getOne(wrapper);
+        return  JsonResponse.success(one);
     }
 }
 

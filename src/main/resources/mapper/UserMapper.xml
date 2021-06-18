@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.User">
         <id column="user_id" property="userId" />
         <result column="trolley_id" property="trolleyId" />
-        <result column="nick_ame" property="nickAme" />
+        <result column="nick_name" property="nickName" />
         <result column="phone_number" property="phoneNumber" />
         <result column="password" property="password" />
         <result column="point" property="point" />
