@@ -1,6 +1,8 @@
 package com.example.mybatisplus.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDate;
 import java.io.Serializable;
@@ -30,7 +32,7 @@ public class Goods extends Model<Goods> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableField("goods_id")
+    @TableId(value = "goods_id",type= IdType.ASSIGN_ID )
     private Long goodsId;
 
     private Integer category;
@@ -39,6 +41,7 @@ public class Goods extends Model<Goods> {
 
     private Integer store;
 
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDate time;
 
@@ -46,16 +49,16 @@ public class Goods extends Model<Goods> {
 
     private String picture;
 
-    @TableField("purchase_times")
+    @TableField(value = "purchase_times")
     private Integer purchaseTimes;
 
-    @TableField("side_dec_1")
+    @TableField(value = "side_dec_1")
     private String sideDec1;
 
-    @TableField("side_dec_2")
+    @TableField(value = "side_dec_2")
     private String sideDec2;
 
-    @TableField("side_dec_3")
+    @TableField(value = "side_dec_3")
     private String sideDec3;
 
 

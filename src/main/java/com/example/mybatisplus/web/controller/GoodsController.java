@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -53,12 +54,14 @@ public class GoodsController {
 
 
     /**
-    * 描述：根据Id 更新
-    *
+     * 描述：根据Id 更新
+     * 接受put请求
+     * 输入非法值似乎不能进行更新 （描述可以更改为空）
+     * 注意前端加限制
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateGoods(@PathVariable("id") Long  id,Goods  goods) throws Exception {
+    public JsonResponse updateGoods(@PathVariable("id") Long  id,@RequestBody Goods  goods) throws Exception {
         goods.setGoodsId(id);
         goodsService.updateById(goods);
         return JsonResponse.success(null);
@@ -67,8 +70,9 @@ public class GoodsController {
 
     /**
      * 描述:创建Goods
+     * 接受post请求
      * 只接受json格式的数据
-     * 必要的字段不能少
+     * 必要的字段不能少 id自动生成 类型为IdType.ASSIGN_ID
      * 时间类型为localDate 字符串格式为 "2014-01-01 00:00:00"
     */
     @RequestMapping(value = "", method = RequestMethod.POST)
