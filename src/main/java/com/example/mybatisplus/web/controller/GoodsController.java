@@ -1,0 +1,91 @@
+package com.example.mybatisplus.web.controller;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.example.mybatisplus.common.JsonResponse;
+import com.example.mybatisplus.service.GoodsService;
+import com.example.mybatisplus.model.domain.Goods;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+
+/**
+ *
+ *  前端控制器
+ *
+ *
+ * @author lxp
+ * @since 2021-06-17
+ * @version v1.0
+ */
+@Controller
+@RequestMapping("/api/goods")
+public class GoodsController {
+
+    private final Logger logger = LoggerFactory.getLogger( GoodsController.class );
+
+    @Autowired
+    private GoodsService goodsService;
+
+    /**
+    * 描述：根据Id 查询
+    *
+    */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
+        System.out.println(LocalDateTime.now());
+        Goods  goods =  goodsService.getById(id);
+        return JsonResponse.success(goods);
+    }
+
+    /**
+    * 描述：根据Id删除
+    *
+    */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
+        goodsService.removeById(id);
+        return JsonResponse.success(null);
+    }
+
+
+    /**
+     * 描述：根据Id 更新
+     * 接受put请求
+     * 输入非法值似乎不能进行更新 （描述可以更改为空）
+     * 注意前端加限制
+    */
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public JsonResponse updateGoods(@PathVariable("id") Long  id,@RequestBody Goods  goods) throws Exception {
+        goods.setGoodsId(id);
+        goodsService.updateById(goods);
+        return JsonResponse.success(null);
+    }
+
+
+    /**
+     * 描述:创建Goods
+     * 接受post请求
+     * 只接受json格式的数据
+     * 必要的字段不能少 id自动生成 类型为IdType.ASSIGN_ID
+     * 时间类型为localDate 字符串格式为 "2014-01-01 00:00:00"
+    */
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse create(@RequestBody Goods  goods) throws Exception {
+        System.out.println(goods.getTime());
+        goodsService.save(goods);
+        return JsonResponse.success(null);
+    }
+}
+

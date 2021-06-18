@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.GoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Goods">
+        <id column="goods_id" property="goodsId" />
+        <result column="category" property="category" />
+        <result column="price" property="price" />
+        <result column="store" property="store" />
+        <result column="time" property="time" />
+        <result column="description" property="description" />
+        <result column="picture" property="picture" />
+        <result column="purchase_times" property="purchaseTimes" />
+        <result column="side_dec_1" property="sideDec1" />
+        <result column="side_dec_2" property="sideDec2" />
+        <result column="side_dec_3" property="sideDec3" />
+    </resultMap>
+
+</mapper>
