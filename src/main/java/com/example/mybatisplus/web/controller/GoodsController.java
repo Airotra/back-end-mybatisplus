@@ -11,6 +11,10 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.GoodsService;
 import com.example.mybatisplus.model.domain.Goods;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 
 /**
  *
@@ -37,6 +41,7 @@ public class GoodsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
+        System.out.println(LocalDateTime.now());
         Goods  goods =  goodsService.getById(id);
         return JsonResponse.success(goods);
     }
