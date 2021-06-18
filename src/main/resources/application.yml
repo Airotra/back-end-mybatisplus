@@ -15,6 +15,7 @@ server:
   servlet:
     encoding:
       charset: utf-8
+  port: 8888
 
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml, classpath:/mybatis/mapper/extend/*.xml
