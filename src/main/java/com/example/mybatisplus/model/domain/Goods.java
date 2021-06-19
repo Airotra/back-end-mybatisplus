@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author lxp
@@ -62,6 +62,7 @@ public class Goods extends Model<Goods> {
     @TableField(value = "side_dec_3")
     private String sideDec3;
 
+    private String name;
 
     @Override
     protected Serializable pkVal() {
