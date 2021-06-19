@@ -1,6 +1,7 @@
 package com.example.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mybatisplus.common.utls.SessionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import com.example.mybatisplus.service.UserService;
 import com.example.mybatisplus.model.domain.User;
 
 import javax.servlet.http.HttpServletResponse;
+
+import static com.example.mybatisplus.common.utls.SessionUtils.session;
 
 
 /**
@@ -86,6 +89,9 @@ public class UserController {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(User::getPhoneNumber, user.getPhoneNumber()).eq(User::getPassword, user.getPassword());
         User one = userService.getOne(wrapper);
+        if(one!=null){
+            SessionUtils.saveCurrentUserInfo(one);
+        }
         return  JsonResponse.success(one);
     }
 }

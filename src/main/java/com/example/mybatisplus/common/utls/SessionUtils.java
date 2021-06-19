@@ -1,6 +1,7 @@
 package com.example.mybatisplus.common.utls;
 
 import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.model.domain.User;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -14,11 +15,11 @@ public class SessionUtils {
         return attr.getRequest().getSession(true); // true == allow create
     }
 
-    public static Admin getCurrentUserInfo() {
-        return (Admin) session().getAttribute(USERKEY);
+    public static User getCurrentUserInfo() {
+        return (User) session().getAttribute(USERKEY);
     }
 
-    public static void saveCurrentUserInfo(Admin admin) {
-        session().setAttribute(USERKEY, admin);
+    public static void saveCurrentUserInfo(User user) {
+        session().setAttribute(USERKEY, user);
     }
 }
