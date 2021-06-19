@@ -14,8 +14,6 @@ import com.example.mybatisplus.model.domain.User;
 
 import javax.servlet.http.HttpServletResponse;
 
-import static com.example.mybatisplus.common.utls.SessionUtils.session;
-
 
 /**
  *
@@ -23,7 +21,7 @@ import static com.example.mybatisplus.common.utls.SessionUtils.session;
  *
  *
  * @author lxp
- * @since 2021-06-18
+ * @since 2021-06-19
  * @version v1.0
  */
 @Controller
@@ -89,10 +87,18 @@ public class UserController {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(User::getPhoneNumber, user.getPhoneNumber()).eq(User::getPassword, user.getPassword());
         User one = userService.getOne(wrapper);
-        if(one!=null){
+        if(one != null){
             SessionUtils.saveCurrentUserInfo(one);
         }
         return  JsonResponse.success(one);
+    }
+
+    @RequestMapping("/logout")
+    @ResponseBody
+    public void logout(HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        SessionUtils.removeCurrentAdminInfo();
+        SessionUtils.removeCurrentUserInfo();
     }
 }
 

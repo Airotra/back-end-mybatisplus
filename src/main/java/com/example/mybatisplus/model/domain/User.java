@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author lxp
- * @since 2021-06-18
+ * @since 2021-06-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -30,13 +30,13 @@ public class User extends Model<User> {
     @TableId(value = "user_id",type= IdType.ASSIGN_ID )
     private Long id;
 
-    @TableField("trolley_id")
+    @TableField(value = "trolley_id")
     private Long trolleyId;
 
-    @TableField("nick_name")
+    @TableField(value = "nick_name")
     private String nickName;
 
-    @TableField("phone_number")
+    @TableField(value = "phone_number")
     private String phoneNumber;
 
     private String password;
@@ -44,6 +44,8 @@ public class User extends Model<User> {
     private Integer point;
 
     private String avatar;
+
+    private Integer type;
 
 
     @Override

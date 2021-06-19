@@ -4,11 +4,10 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Admin">
-        <id column="id" property="id" />
-        <result column="loginName" property="loginName" />
-        <result column="password" property="password" />
-        <result column="lastLoginTime" property="lastLoginTime" />
-        <result column="remark" property="remark" />
+        <id column="admin_id" property="adminId" />
+        <result column="admin_account" property="adminAccount" />
+        <result column="admin_password" property="adminPassword" />
+        <result column="type" property="type" />
     </resultMap>
 
 </mapper>

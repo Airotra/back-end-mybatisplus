@@ -2,6 +2,7 @@ package com.example.mybatisplus.common.utls;
 
 import com.example.mybatisplus.model.domain.Admin;
 import com.example.mybatisplus.model.domain.User;
+import com.example.mybatisplus.model.dto.AdminInfoDTO;
 import com.example.mybatisplus.model.dto.UserInfoDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +30,27 @@ public class SecurityUtils {
     public static UserInfoDTO getUserInfo() {
         User userInfo = SessionUtils.getCurrentUserInfo();
         UserInfoDTO userInfoDTO = new UserInfoDTO();
+
+        Admin adminInfo = SessionUtils.getCurrentAdminInfo();
+        AdminInfoDTO adminInfoDTO = new AdminInfoDTO();
+
         //模拟登录
-        if (userInfo == null) {
+        if (userInfo == null && adminInfo == null) {
             userInfo = new User();
-            userInfo.setNickName("模拟用户2");
+            userInfo.setNickName("游客");
             userInfoDTO.setId(1L);
-            userInfoDTO.setName("模拟用户2");
+            userInfoDTO.setName("游客");
             userInfoDTO.setUserType(1L);
-        }else{
+        }else if (userInfo != null){
             userInfoDTO.setId(userInfo.getId());
             userInfoDTO.setName(userInfo.getNickName());
+            userInfoDTO.setUserType(userInfo.getType().longValue());
+            System.out.println(userInfo.getType().longValue());
+        }else {
+            userInfoDTO.setId(adminInfo.getId());
+            userInfoDTO.setName(adminInfo.getAdminAccount());
             userInfoDTO.setUserType(1L);
         }
-
         return userInfoDTO;
     }
 }

@@ -1,0 +1,3 @@
+--在user和admin表中增加type字段
+ALTER TABLE user ADD type INT;
+ALTER TABLE admin ADD type INT;

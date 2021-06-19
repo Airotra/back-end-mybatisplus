@@ -1,10 +1,9 @@
 package com.example.mybatisplus.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author lxp
- * @since 2021-04-19
+ * @since 2021-06-19
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,18 +27,16 @@ public class Admin extends Model<Admin> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "admin_id",type= IdType.ASSIGN_ID )
     private Long id;
 
-    @TableField("loginName")
-    private String loginName;
+    @TableField(value = "admin_account")
+    private String adminAccount;
 
-    private String password;
+    @TableField(value = "admin_password")
+    private String adminPassword;
 
-    @TableField("lastLoginTime")
-    private LocalDateTime lastLoginTime;
-
-    private String remark;
+    private Integer type;
 
 
     @Override
