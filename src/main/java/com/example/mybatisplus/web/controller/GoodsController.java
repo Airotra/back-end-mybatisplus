@@ -1,6 +1,10 @@
 package com.example.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.model.dto.GoodsDTO;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -11,6 +15,7 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.GoodsService;
 import com.example.mybatisplus.model.domain.Goods;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -86,6 +91,24 @@ public class GoodsController {
         System.out.println(goods.getTime());
         goodsService.save(goods);
         return JsonResponse.success(null);
+    }
+
+    @RequestMapping("/list")
+    @ResponseBody
+    public JsonResponse list(Model model,
+                             @RequestParam(required = false,defaultValue = "1") Integer pageNo,
+                             @RequestParam(required = false,defaultValue = "10")Integer pageSize){
+        Page<Goods> page = goodsService.page(new Page<>(pageNo, pageSize));
+        return JsonResponse.success(page);
+    }
+
+    @GetMapping("/listByPage")
+    @ResponseBody
+    public  JsonResponse list2(GoodsDTO goodsDTO, HttpServletResponse httpServletResponse){
+        System.out.println(goodsDTO.getPageSize());
+        httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
+        Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()));
+        return  JsonResponse.success(page);
     }
 }
 
