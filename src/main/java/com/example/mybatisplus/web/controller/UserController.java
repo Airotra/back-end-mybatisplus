@@ -124,6 +124,7 @@ public class UserController {
             userService.save(user);
 
             return true;
+
         } else {
             return  false;
         }
