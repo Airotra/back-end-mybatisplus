@@ -107,7 +107,7 @@ public class UserController {
         SessionUtils.removeCurrentUserInfo();
     }
 
-    @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
+    @RequestMapping(value = "/userRegister")
     @ResponseBody
     public Boolean register(User user, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
