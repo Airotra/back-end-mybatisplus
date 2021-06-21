@@ -1,6 +1,7 @@
 package com.example.mybatisplus.service;
 
-import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.model.domain.Trolley;
+import com.example.mybatisplus.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lxp
  * @since 2021-06-19
  */
-public interface AdminService extends IService<Admin> {
+public interface UserService extends IService<User> {
 
 }

@@ -22,19 +22,28 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Admin对象", description="")
-public class Admin extends Model<Admin> {
+@ApiModel(value="User对象", description="")
+public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "admin_id",type= IdType.ASSIGN_ID )
+    @TableId(value = "user_id",type= IdType.ASSIGN_ID )
     private Long id;
 
-    @TableField(value = "admin_account")
-    private String adminAccount;
+    @TableField(value = "trolley_id")
+    private Long trolleyId;
 
-    @TableField(value = "admin_password")
-    private String adminPassword;
+    @TableField(value = "nick_name")
+    private String nickName;
+
+    @TableField(value = "phone_number")
+    private String phoneNumber;
+
+    private String password;
+
+    private Integer point;
+
+    private String avatar;
 
     private Integer type;
 

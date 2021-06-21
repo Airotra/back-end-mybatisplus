@@ -1,6 +1,6 @@
 package com.example.mybatisplus.mapper;
 
-import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.model.domain.Trolley;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author lxp
- * @since 2021-06-19
+ * @since 2021-06-21
  */
-public interface AdminMapper extends BaseMapper<Admin> {
+public interface TrolleyMapper extends BaseMapper<Trolley> {
 
 }

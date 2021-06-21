@@ -1,8 +1,7 @@
 package com.example.mybatisplus.web.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mybatisplus.common.utls.SessionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -13,7 +12,7 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.AdminService;
 import com.example.mybatisplus.model.domain.Admin;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -22,7 +21,8 @@ import java.util.List;
  *
  *
  * @author lxp
- * @since 2021-04-19
+ * @since 2021-06-19
+ * @version v1.0
  */
 @Controller
 @RequestMapping("/api/admin")
@@ -76,26 +76,21 @@ public class AdminController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public JsonResponse create(Admin  admin) throws Exception {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        admin.setPassword(encoder.encode(admin.getPassword()));
         adminService.save(admin);
         return JsonResponse.success(null);
     }
-    @RequestMapping("/list")
-    @ResponseBody
-    public JsonResponse list(Model model,
-                             @RequestParam(required = false,defaultValue = "1") Integer pageNo,
-                             @RequestParam(required = false,defaultValue = "10")Integer pageSize){
-        Page<Admin> page = adminService.page(new Page<>(pageNo, pageSize));
 
-        return JsonResponse.success(page);
-    }
-
-    @RequestMapping("/deleteByIds")
+    @RequestMapping("/adminLogin")
     @ResponseBody
-    public JsonResponse deleteByIds(@RequestParam("ids[]")List<Integer> ids){
-        adminService.removeByIds(ids);
-        return JsonResponse.success( null);
+    public JsonResponse login(Admin admin, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<Admin> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Admin::getAdminAccount, admin.getAdminAccount()).eq(Admin::getAdminPassword, admin.getAdminPassword());
+        Admin one = adminService.getOne(wrapper);
+        if(one!=null){
+            SessionUtils.saveCurrentAdminInfo(one);
+        }
+        return  JsonResponse.success(one);
     }
 }
 

@@ -1,6 +1,6 @@
 package com.example.mybatisplus.mapper;
 
-import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.model.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lxp
  * @since 2021-06-19
  */
-public interface AdminMapper extends BaseMapper<Admin> {
+public interface UserMapper extends BaseMapper<User> {
 
 }
