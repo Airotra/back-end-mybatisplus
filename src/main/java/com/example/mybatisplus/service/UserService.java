@@ -1,5 +1,6 @@
 package com.example.mybatisplus.service;
 
+import com.example.mybatisplus.model.domain.Trolley;
 import com.example.mybatisplus.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 

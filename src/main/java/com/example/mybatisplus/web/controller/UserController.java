@@ -1,7 +1,10 @@
 package com.example.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.common.utls.SessionUtils;
+import com.example.mybatisplus.model.domain.Trolley;
+import com.example.mybatisplus.service.TrolleyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -32,6 +35,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TrolleyService trolleyService;
 
     /**
     * 描述：根据Id 查询
@@ -99,6 +105,28 @@ public class UserController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         SessionUtils.removeCurrentAdminInfo();
         SessionUtils.removeCurrentUserInfo();
+    }
+
+    @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean register(User user, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(User::getPhoneNumber, user.getPhoneNumber());
+        User one = userService.getOne(wrapper);
+        if (one == null) {
+            Trolley trolley = new Trolley();
+            trolleyService.save(trolley);
+
+            user.setTrolleyId(trolley.getId());
+            System.out.println(trolley.getId());
+            userService.save(user);
+
+            return true;
+        } else {
+            return  false;
+        }
     }
 }
 

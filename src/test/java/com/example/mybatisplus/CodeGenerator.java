@@ -188,7 +188,7 @@ public class CodeGenerator {
         strategy.setChainModel(true);//启用lombok链式注解
 
 
-        strategy.setInclude("user");
+        strategy.setInclude("trolley");
        //strategy.setTablePrefix("caps_");//去表前缀配置
 
         mpg.setGlobalConfig(gc);
