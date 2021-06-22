@@ -1,9 +1,12 @@
 package com.example.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.model.domain.Admin;
 import com.example.mybatisplus.model.dto.GoodsDTO;
+import freemarker.ext.beans.TemplateAccessible;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import com.example.mybatisplus.service.GoodsService;
 import com.example.mybatisplus.model.domain.Goods;
 
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Wrapper;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -104,11 +108,35 @@ public class GoodsController {
 
     @GetMapping("/listByPage")
     @ResponseBody
-    public  JsonResponse list2(GoodsDTO goodsDTO, HttpServletResponse httpServletResponse){
-        System.out.println(goodsDTO.getPageSize());
+    public JsonResponse listByTypeOrderByPrice(GoodsDTO goodsDTO,HttpServletResponse httpServletResponse){
         httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
-        Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()));
-        return  JsonResponse.success(page);
+        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        //种类为0时表示没有种类
+        if(goodsDTO.getCategory()!=0)
+            wrapper.lambda().eq(Goods::getCategory,goodsDTO.getCategory());
+        //设置排序条件
+        setGoodsWrapper(wrapper,goodsDTO.isOrderByPrice(),goodsDTO.isOrderByPurchase(),
+                                        goodsDTO.isPriceDesc(),goodsDTO.isPurchaseDesc());
+        //查询
+        Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()),wrapper);
+        return JsonResponse.success(page);
     }
+    /****************************************************************/
+    //设置goods的Wrapper的逻辑
+    private void setGoodsWrapper(QueryWrapper<Goods> wrapper,boolean orderByPrice,boolean orderByPurchase,
+                                 boolean PriceDesc,boolean PurchaseDesc){
+        //按价格排序
+        if(orderByPrice){
+            if(PriceDesc)wrapper.lambda().select().orderByDesc(Goods::getPrice);
+            else wrapper.lambda().select().orderByAsc(Goods::getPrice);
+        }
+        //按购买次数排序
+        if(orderByPurchase){
+            if(PurchaseDesc)wrapper.lambda().select().orderByDesc(Goods::getPurchaseTimes);
+            else wrapper.lambda().select().orderByAsc(Goods::getPurchaseTimes);
+        }
+
+    }
+
 }
 
