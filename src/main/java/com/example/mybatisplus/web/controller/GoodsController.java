@@ -111,6 +111,9 @@ public class GoodsController {
     public JsonResponse listByTypeOrderByPrice(GoodsDTO goodsDTO,HttpServletResponse httpServletResponse){
         httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
         QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        //name为null表示未按名字搜索
+        if(!goodsDTO.getName().equals("null"))
+            wrapper.lambda().like(Goods::getName,goodsDTO.getName());
         //种类为0时表示没有种类
         if(goodsDTO.getCategory()!=0)
             wrapper.lambda().eq(Goods::getCategory,goodsDTO.getCategory());
