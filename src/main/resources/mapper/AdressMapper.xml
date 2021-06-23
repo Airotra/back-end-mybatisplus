@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.AdressMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Adress">
+        <id column="adress_id" property="adressId" />
+        <result column="user_id" property="userId" />
+        <result column="nation" property="nation" />
+        <result column="provice" property="provice" />
+        <result column="city" property="city" />
+        <result column="district" property="district" />
+        <result column="addr" property="addr" />
+    </resultMap>
+
+</mapper>
