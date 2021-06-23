@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.common.utls.SessionUtils;
 import com.example.mybatisplus.model.domain.Trolley;
+import com.example.mybatisplus.model.vo.UserVo;
 import com.example.mybatisplus.service.TrolleyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -127,6 +128,16 @@ public class UserController {
         } else {
             return  false;
         }
+    }
+
+    @RequestMapping("/getAddr")
+    @ResponseBody
+    public JsonResponse getAddr(Long id, HttpServletResponse response){
+       response.setHeader("Access-Control-Allow-Origin", "*");
+
+        UserVo userVo = userService.getAddr(id);
+
+        return JsonResponse.success(userVo);
     }
 
 }

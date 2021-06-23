@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.User">
-        <id column="user_id" property="userId" />
+        <id column="user_id" property="id" />
         <result column="trolley_id" property="trolleyId" />
         <result column="nick_name" property="nickName" />
         <result column="phone_number" property="phoneNumber" />
@@ -13,5 +13,31 @@
         <result column="avatar" property="avatar" />
         <result column="type" property="type" />
     </resultMap>
+    
+    <resultMap id="AddrResult" type="com.example.mybatisplus.model.vo.UserVo">
+        <id column="user_id" property="id" />
+        <result column="trolley_id" property="trolleyId" />
+        <result column="nick_name" property="nickName" />
+        <result column="phone_number" property="phoneNumber" />
+        <result column="password" property="password" />
+        <result column="point" property="point" />
+        <result column="avatar" property="avatar" />
+        <result column="type" property="type" />
+        <collection property="list" ofType="com.example.mybatisplus.model.domain.Adress">
+            <id column="adress_id" property="id" />
+            <result column="user_id" property="userId" />
+            <result column="nation" property="nation" />
+            <result column="provice" property="provice" />
+            <result column="city" property="city" />
+            <result column="district" property="district" />
+            <result column="addr" property="addr" />
+        </collection>
+    </resultMap>
+
+    <select id="getAddr" resultMap="AddrResult">
+         SELECT *, a.user_id As id FROM `user` a
+         LEFT JOIN adress b ON b.user_id = a.user_id
+         WHERE a.user_id = #{id}
+    </select>
 
 </mapper>
