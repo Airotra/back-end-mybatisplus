@@ -62,7 +62,7 @@ public class AdminController {
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateAdmin(@PathVariable("id") Long  id,Admin  admin) throws Exception {
+    public JsonResponse updateAdmin(@PathVariable("id") Long  id,@RequestBody Admin  admin) throws Exception {
         admin.setId(id);
         adminService.updateById(admin);
         return JsonResponse.success(null);

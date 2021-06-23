@@ -48,7 +48,7 @@ public class SecurityUtils {
         }else {
             userInfoDTO.setId(adminInfo.getId());
             userInfoDTO.setName(adminInfo.getAdminAccount());
-            userInfoDTO.setUserType(1L);
+            userInfoDTO.setUserType(adminInfo.getType().longValue());
         }
         return userInfoDTO;
     }
