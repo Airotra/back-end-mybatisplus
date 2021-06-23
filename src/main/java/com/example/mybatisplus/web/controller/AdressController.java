@@ -58,7 +58,7 @@ public class AdressController {
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateAdress(@PathVariable("id") Long  id,Adress  adress) throws Exception {
+    public JsonResponse updateAdress(@PathVariable("id") Long  id, @RequestBody Adress  adress) throws Exception {
         adress.setId(id);
         adressService.updateById(adress);
         return JsonResponse.success(null);
