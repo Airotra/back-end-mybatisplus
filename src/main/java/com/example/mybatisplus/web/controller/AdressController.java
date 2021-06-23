@@ -10,6 +10,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.AdressService;
 import com.example.mybatisplus.model.domain.Adress;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -71,9 +73,10 @@ public class AdressController {
     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResponse create(Adress  adress) throws Exception {
+    public JsonResponse create(@RequestBody Adress  adress) throws Exception {
         adressService.save(adress);
         return JsonResponse.success(null);
     }
+
 }
 
