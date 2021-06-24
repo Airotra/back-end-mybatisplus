@@ -37,9 +37,9 @@ public class SecurityUtils {
         //模拟登录
         if (userInfo == null && adminInfo == null) {
             userInfo = new User();
-            userInfo.setNickName("临时");
+            userInfo.setNickName("");
             userInfoDTO.setId(1L);
-            userInfoDTO.setName("临时");
+            userInfoDTO.setName("");
             userInfoDTO.setUserType(3L);
         }else if (userInfo != null){
             userInfoDTO.setId(userInfo.getId());

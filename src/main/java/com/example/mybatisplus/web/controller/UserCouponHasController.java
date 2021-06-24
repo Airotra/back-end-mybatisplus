@@ -1,5 +1,9 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.mybatisplus.model.domain.User;
+import com.example.mybatisplus.model.dto.UserCouponHasDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -59,7 +63,7 @@ public class UserCouponHasController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updateUserCouponHas(@PathVariable("id") Long  id,UserCouponHas  userCouponHas) throws Exception {
-        userCouponHas.setUserId(id);
+        userCouponHas.setCouponId(id);
         userCouponHasService.updateById(userCouponHas);
         return JsonResponse.success(null);
     }
@@ -74,6 +78,23 @@ public class UserCouponHasController {
     public JsonResponse create(@RequestBody UserCouponHas  userCouponHas) throws Exception {
         userCouponHasService.save(userCouponHas);
         return JsonResponse.success(null);
+    }
+
+    /**
+     * 描述：根据Id 更新
+     *
+     */
+    @RequestMapping(value = "/updateUserCoupon", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse updateUserCoupon(@RequestBody UserCouponHasDTO userCouponHasDTO) throws Exception {
+        QueryWrapper<UserCouponHas> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UserCouponHas::getCouponId, userCouponHasDTO.getCouponId());
+        UserCouponHas userCoupon = new UserCouponHas();
+        userCoupon.setAmount(userCouponHasDTO.getAmount());
+        userCoupon.setTime(userCouponHasDTO.getTime());
+        boolean update = userCouponHasService.update(userCoupon, wrapper);
+
+        return JsonResponse.success(update);
     }
 }
 

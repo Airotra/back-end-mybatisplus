@@ -7,6 +7,11 @@
         <id column="coupon_id" property="couponId" />
         <result column="amount" property="amount" />
         <result column="quantity" property="quantity" />
+        <result column="time" property="time" />
     </resultMap>
+
+    <select id="getAllCoupon" resultMap="BaseResultMap">
+        select * from coupon
+    </select>
 
 </mapper>

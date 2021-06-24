@@ -10,6 +10,9 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.CouponService;
 import com.example.mybatisplus.model.domain.Coupon;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
 
 /**
  *
@@ -74,6 +77,16 @@ public class CouponController {
     public JsonResponse create(@RequestBody Coupon  coupon) throws Exception {
         couponService.save(coupon);
         return JsonResponse.success(null);
+    }
+
+    @RequestMapping("/getAllCoupon")
+    @ResponseBody
+    public JsonResponse getAllCoupon(Long id, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        List<Coupon> list = couponService.getAllCoupon();
+
+        return JsonResponse.success(list);
     }
 }
 
