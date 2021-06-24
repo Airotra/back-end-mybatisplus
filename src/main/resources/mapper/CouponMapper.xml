@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.CouponMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.Coupon">
+        <id column="coupon_id" property="couponId" />
+        <result column="amount" property="amount" />
+        <result column="quantity" property="quantity" />
+        <result column="time" property="time" />
+    </resultMap>
+
+    <select id="getAllCoupon" resultMap="BaseResultMap">
+        select * from coupon
+    </select>
+
+</mapper>

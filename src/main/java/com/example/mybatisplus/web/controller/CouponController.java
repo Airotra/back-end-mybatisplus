@@ -1,7 +1,5 @@
 package com.example.mybatisplus.web.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.mybatisplus.common.utls.SessionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -9,10 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.service.AdminService;
-import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.service.CouponService;
+import com.example.mybatisplus.model.domain.Coupon;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -21,17 +20,17 @@ import javax.servlet.http.HttpServletResponse;
  *
  *
  * @author lxp
- * @since 2021-06-19
+ * @since 2021-06-24
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/admin")
-public class AdminController {
+@RequestMapping("/api/coupon")
+public class CouponController {
 
-    private final Logger logger = LoggerFactory.getLogger( AdminController.class );
+    private final Logger logger = LoggerFactory.getLogger( CouponController.class );
 
     @Autowired
-    private AdminService adminService;
+    private CouponService couponService;
 
     /**
     * 描述：根据Id 查询
@@ -40,8 +39,8 @@ public class AdminController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        Admin  admin =  adminService.getById(id);
-        return JsonResponse.success(admin);
+        Coupon  coupon =  couponService.getById(id);
+        return JsonResponse.success(coupon);
     }
 
     /**
@@ -51,7 +50,7 @@ public class AdminController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        adminService.removeById(id);
+        couponService.removeById(id);
         return JsonResponse.success(null);
     }
 
@@ -62,35 +61,32 @@ public class AdminController {
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateAdmin(@PathVariable("id") Long  id,@RequestBody Admin  admin) throws Exception {
-        admin.setId(id);
-        adminService.updateById(admin);
+    public JsonResponse updateCoupon(@PathVariable("id") Long  id,@RequestBody Coupon  coupon) throws Exception {
+        coupon.setCouponId(id);
+        couponService.updateById(coupon);
         return JsonResponse.success(null);
     }
 
 
     /**
-    * 描述:创建Admin
+    * 描述:创建Coupon
     *
     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResponse create(Admin  admin) throws Exception {
-        adminService.save(admin);
+    public JsonResponse create(@RequestBody Coupon  coupon) throws Exception {
+        couponService.save(coupon);
         return JsonResponse.success(null);
     }
 
-    @RequestMapping("/adminLogin")
+    @RequestMapping("/getAllCoupon")
     @ResponseBody
-    public JsonResponse login(Admin admin, HttpServletResponse response){
+    public JsonResponse getAllCoupon(Long id, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
-        QueryWrapper<Admin> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(Admin::getAdminAccount, admin.getAdminAccount()).eq(Admin::getAdminPassword, admin.getAdminPassword());
-        Admin one = adminService.getOne(wrapper);
-        if(one!=null){
-            SessionUtils.saveCurrentAdminInfo(one);
-        }
-        return  JsonResponse.success(one);
+
+        List<Coupon> list = couponService.getAllCoupon();
+
+        return JsonResponse.success(list);
     }
 }
 
