@@ -3,6 +3,7 @@ package com.example.mybatisplus.web.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.common.utls.SessionUtils;
+import com.example.mybatisplus.model.domain.Coupon;
 import com.example.mybatisplus.model.domain.Trolley;
 import com.example.mybatisplus.model.vo.UserVo;
 import com.example.mybatisplus.service.TrolleyService;
@@ -17,6 +18,7 @@ import com.example.mybatisplus.service.UserService;
 import com.example.mybatisplus.model.domain.User;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -138,6 +140,26 @@ public class UserController {
         UserVo userVo = userService.getAddr(id);
 
         return JsonResponse.success(userVo);
+    }
+
+    @RequestMapping("/getUserCoupon")
+    @ResponseBody
+    public JsonResponse getUserCoupon(Long id, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        UserVo userVo = userService.getUserCoupon(id);
+
+        return JsonResponse.success(userVo);
+    }
+
+    @RequestMapping("/getCoupon")
+    @ResponseBody
+    public JsonResponse getCoupon(Long id, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        List<Coupon> list = userService.getCoupon(id);
+
+        return JsonResponse.success(list);
     }
 
 }
