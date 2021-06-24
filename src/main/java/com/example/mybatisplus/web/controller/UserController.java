@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.common.utls.SessionUtils;
 import com.example.mybatisplus.model.domain.Trolley;
+import com.example.mybatisplus.model.domain.TrolleyContainGoods;
 import com.example.mybatisplus.service.TrolleyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -127,6 +128,24 @@ public class UserController {
         } else {
             return  false;
         }
+    }
+
+    // 获取用户的购物车ID
+    @GetMapping("/getTrolleyID")
+    @ResponseBody
+    public Long getTrolleyID(Long id,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        Long trolleyId = userService.getById(id).getTrolleyId();
+        return trolleyId;
+    }
+
+    // 获取用户信息
+    @GetMapping("/getUserDetail")
+    @ResponseBody
+    public JsonResponse getUserDetail(Long id,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        User user = userService.getById(id);
+        return JsonResponse.success(user);
     }
 }
 

@@ -1,8 +1,10 @@
 package com.example.mybatisplus.web.controller;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.model.domain.Admin;
+import com.example.mybatisplus.model.domain.TrolleyContainGoods;
 import com.example.mybatisplus.model.dto.GoodsDTO;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,5 +112,31 @@ public class GoodsController {
         Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()));
         return  JsonResponse.success(page);
     }
+
+    //通过id获取商品信息
+    @GetMapping("/getGoods")
+    @ResponseBody
+    public JsonResponse getGoods(Long id, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        Goods good = goodsService.getById(id);
+        return JsonResponse.success(good);
+    }
+    /****************************************************************/
+    //设置goods的Wrapper的逻辑
+    private void setGoodsWrapper(QueryWrapper<Goods> wrapper, boolean orderByPrice, boolean orderByPurchase,
+                                 boolean PriceDesc, boolean PurchaseDesc){
+        //按价格排序
+        if(orderByPrice){
+            if(PriceDesc)wrapper.lambda().select().orderByDesc(Goods::getPrice);
+            else wrapper.lambda().select().orderByAsc(Goods::getPrice);
+        }
+        //按购买次数排序
+        if(orderByPurchase){
+            if(PurchaseDesc)wrapper.lambda().select().orderByDesc(Goods::getPurchaseTimes);
+            else wrapper.lambda().select().orderByAsc(Goods::getPurchaseTimes);
+        }
+
+    }
+
 }
 

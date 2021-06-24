@@ -6,7 +6,7 @@ import lombok.Data;
 public class TrolleyDTO {
     private Integer pageNo = 1;
     private Integer pageSize = 10;
-    public Integer id = 0;
-    public Integer goodsid = 0;
+    public Long id = 0l;
+    public Long goodsid = 0l;
     public Integer goodsnumber = 0;
 }
