@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,6 +36,7 @@ public class Goods extends Model<Goods> {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "goods_id",type= IdType.ASSIGN_ID )
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long goodsId;
 
     private Integer category;

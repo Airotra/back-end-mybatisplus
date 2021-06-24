@@ -1,10 +1,10 @@
 package com.example.mybatisplus.model.dto;
 
 import lombok.Data;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Data
 public class GoodsDTO {
+    private String name = "null";
     private Integer pageNo = 1;
     private Integer pageSize = 10;
     private Integer category = 0;
