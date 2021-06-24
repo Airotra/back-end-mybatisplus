@@ -16,5 +16,10 @@
         <result column="side_dec_2" property="sideDec2" />
         <result column="side_dec_3" property="sideDec3" />
     </resultMap>
-
+    <delete id="deleteGoodsByIds">
+        delete from goods where goods_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>
