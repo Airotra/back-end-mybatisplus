@@ -153,6 +153,26 @@ public class UserController {
         return JsonResponse.success(userVo);
     }
 
+
+    // 获取用户的购物车ID
+    @GetMapping("/getTrolleyID")
+    @ResponseBody
+    public Long getTrolleyID(Long id,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        Long trolleyId = userService.getById(id).getTrolleyId();
+        return trolleyId;
+    }
+
+    // 获取用户信息
+    @GetMapping("/getUserDetail")
+    @ResponseBody
+    public JsonResponse getUserDetail(Long id,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        User user = userService.getById(id);
+        return JsonResponse.success(user);
+    }
+
+
     @RequestMapping("/getCoupon")
     @ResponseBody
     public JsonResponse getCoupon(Long id, HttpServletResponse response){

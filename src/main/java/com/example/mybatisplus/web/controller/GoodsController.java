@@ -3,10 +3,14 @@ package com.example.mybatisplus.web.controller;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.mapper.GoodsMapper;
 import com.example.mybatisplus.model.domain.Admin;
 import com.example.mybatisplus.model.dto.GoodsDTO;
+import com.example.mybatisplus.model.dto.GoodsDeleteDTO;
+import freemarker.ext.beans.TemplateAccessible;
 import com.example.mybatisplus.model.dto.GoodsDeleteDTO;
 import freemarker.ext.beans.TemplateAccessible;
 import org.springframework.ui.Model;
@@ -135,6 +139,19 @@ public class GoodsController {
         //查询
         Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()),wrapper);
         return JsonResponse.success(page);
+    }
+    /**
+     * 描述:按id批量删除
+     * delete请求是真的垃圾，Get也是
+     */
+
+    //通过id获取商品信息
+    @GetMapping("/getGoods")
+    @ResponseBody
+    public JsonResponse getGoods(Long id, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        Goods good = goodsService.getById(id);
+        return JsonResponse.success(good);
     }
     /**
      * 描述:按id批量删除
