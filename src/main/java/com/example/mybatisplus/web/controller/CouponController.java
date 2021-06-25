@@ -76,7 +76,7 @@ public class CouponController {
     @ResponseBody
     public JsonResponse create(@RequestBody Coupon  coupon) throws Exception {
         couponService.save(coupon);
-        return JsonResponse.success(null);
+        return JsonResponse.success(coupon);
     }
 
     @RequestMapping("/getAllCoupon")
