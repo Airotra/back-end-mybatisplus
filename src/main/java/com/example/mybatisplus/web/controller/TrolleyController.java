@@ -75,5 +75,6 @@ public class TrolleyController {
         trolleyService.save(trolley);
         return JsonResponse.success(null);
     }
+
 }
 
