@@ -104,15 +104,16 @@ public class UserController {
 
     @RequestMapping("/logout")
     @ResponseBody
-    public void logout(HttpServletResponse response){
+    public JsonResponse logout(HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
         SessionUtils.removeCurrentAdminInfo();
         SessionUtils.removeCurrentUserInfo();
+        return  JsonResponse.success(null);
     }
 
     @RequestMapping(value = "/userRegister")
     @ResponseBody
-    public Boolean register(User user, HttpServletResponse response){
+    public JsonResponse register(User user, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
 
         QueryWrapper<User> wrapper = new QueryWrapper<>();
@@ -126,9 +127,9 @@ public class UserController {
             System.out.println(trolley.getId());
             userService.save(user);
 
-            return true;
+            return JsonResponse.success(true);
         } else {
-            return  false;
+            return JsonResponse.success(false);
         }
     }
 
