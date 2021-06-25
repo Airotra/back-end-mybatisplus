@@ -1,8 +1,5 @@
 package com.example.mybatisplus.web.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -10,11 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.mybatisplus.common.JsonResponse;
-import com.example.mybatisplus.service.AdressService;
-import com.example.mybatisplus.model.domain.Adress;
+import com.example.mybatisplus.service.CouponService;
+import com.example.mybatisplus.model.domain.Coupon;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
+import java.util.List;
 
 
 /**
@@ -27,13 +24,13 @@ import java.util.Map;
  * @version v1.0
  */
 @Controller
-@RequestMapping("/api/adress")
-public class AdressController {
+@RequestMapping("/api/coupon")
+public class CouponController {
 
-    private final Logger logger = LoggerFactory.getLogger( AdressController.class );
+    private final Logger logger = LoggerFactory.getLogger( CouponController.class );
 
     @Autowired
-    private AdressService adressService;
+    private CouponService couponService;
 
     /**
     * 描述：根据Id 查询
@@ -42,8 +39,8 @@ public class AdressController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
     public JsonResponse getById(@PathVariable("id") Long id)throws Exception {
-        Adress  adress =  adressService.getById(id);
-        return JsonResponse.success(adress);
+        Coupon  coupon =  couponService.getById(id);
+        return JsonResponse.success(coupon);
     }
 
     /**
@@ -53,7 +50,7 @@ public class AdressController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public JsonResponse deleteById(@PathVariable("id") Long id) throws Exception {
-        adressService.removeById(id);
+        couponService.removeById(id);
         return JsonResponse.success(null);
     }
 
@@ -64,31 +61,32 @@ public class AdressController {
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateAdress(@PathVariable("id") Long  id,Adress  adress) throws Exception {
-        adress.setId(id);
-        adressService.updateById(adress);
+    public JsonResponse updateCoupon(@PathVariable("id") Long  id,@RequestBody Coupon  coupon) throws Exception {
+        coupon.setCouponId(id);
+        couponService.updateById(coupon);
         return JsonResponse.success(null);
     }
 
 
     /**
-    * 描述:创建Adress
+    * 描述:创建Coupon
     *
     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResponse create(Adress  adress) throws Exception {
-        adressService.save(adress);
+    public JsonResponse create(@RequestBody Coupon  coupon) throws Exception {
+        couponService.save(coupon);
         return JsonResponse.success(null);
     }
 
-    @GetMapping("/getAddress")
+    @RequestMapping("/getAllCoupon")
     @ResponseBody
-    public JsonResponse getAddress(Long userid, HttpServletResponse response){
+    public JsonResponse getAllCoupon(Long id, HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
-        QueryWrapper<Adress> wrapper = new QueryWrapper<>();
-        LambdaQueryWrapper<Adress> eq = wrapper.lambda().eq(Adress::getUserId, userid);
-        return JsonResponse.success(eq);
+
+        List<Coupon> list = couponService.getAllCoupon();
+
+        return JsonResponse.success(list);
     }
 }
 

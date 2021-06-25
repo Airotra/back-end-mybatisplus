@@ -16,42 +16,32 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
- *
+ * 
  * </p>
  *
  * @author lxp
- * @since 2021-06-23
+ * @since 2021-06-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Adress对象", description="")
-public class Adress extends Model<Adress> {
+@ApiModel(value="AdminCouponProvide对象", description="")
+public class AdminCouponProvide extends Model<AdminCouponProvide> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "adress_id",type= IdType.ASSIGN_ID )
+    @TableField(value = "admin_id")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private Long adminId;
 
-    @TableField(value = "user_id")
-    private Long userId;
-
-    private String nation;
-
-    private String provice;
-
-    private String city;
-
-    private String district;
-
-    private String addr;
+    @TableField(value = "coupon_id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long couponId;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.adminId;
     }
 
 }

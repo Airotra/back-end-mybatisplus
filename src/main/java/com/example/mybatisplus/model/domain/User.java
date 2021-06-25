@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,9 +31,11 @@ public class User extends Model<User> {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "user_id",type= IdType.ASSIGN_ID )
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @TableField(value = "trolley_id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long trolleyId;
 
     @TableField(value = "nick_name")

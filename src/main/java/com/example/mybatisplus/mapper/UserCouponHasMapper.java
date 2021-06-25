@@ -1,6 +1,6 @@
 package com.example.mybatisplus.mapper;
 
-import com.example.mybatisplus.model.domain.Adress;
+import com.example.mybatisplus.model.domain.UserCouponHas;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author lxp
- * @since 2021-06-23
+ * @since 2021-06-24
  */
-public interface AdressMapper extends BaseMapper<Adress> {
+public interface UserCouponHasMapper extends BaseMapper<UserCouponHas> {
 
 }

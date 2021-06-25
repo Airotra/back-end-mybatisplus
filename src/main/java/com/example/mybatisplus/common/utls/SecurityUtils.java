@@ -37,19 +37,18 @@ public class SecurityUtils {
         //模拟登录
         if (userInfo == null && adminInfo == null) {
             userInfo = new User();
-            userInfo.setNickName("游客");
+            userInfo.setNickName("");
             userInfoDTO.setId(1L);
-            userInfoDTO.setName("游客");
-            userInfoDTO.setUserType(1L);
+            userInfoDTO.setName("");
+            userInfoDTO.setUserType(3L);
         }else if (userInfo != null){
             userInfoDTO.setId(userInfo.getId());
             userInfoDTO.setName(userInfo.getNickName());
             userInfoDTO.setUserType(userInfo.getType().longValue());
-            System.out.println(userInfo.getType().longValue());
         }else {
             userInfoDTO.setId(adminInfo.getId());
             userInfoDTO.setName(adminInfo.getAdminAccount());
-            userInfoDTO.setUserType(1L);
+            userInfoDTO.setUserType(adminInfo.getType().longValue());
         }
         return userInfoDTO;
     }

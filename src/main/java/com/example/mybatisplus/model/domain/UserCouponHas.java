@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -16,42 +18,39 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
- *
+ * 
  * </p>
  *
  * @author lxp
- * @since 2021-06-23
+ * @since 2021-06-24
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Adress对象", description="")
-public class Adress extends Model<Adress> {
+@ApiModel(value="UserCouponHas对象", description="")
+public class UserCouponHas extends Model<UserCouponHas> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "adress_id",type= IdType.ASSIGN_ID )
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
-
     @TableField(value = "user_id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
-    private String nation;
+    @TableField(value = "coupon_id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long couponId;
 
-    private String provice;
+    private Integer amount;
 
-    private String city;
+    private Integer quantity;
 
-    private String district;
-
-    private String addr;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private LocalDateTime time;
 
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.userId;
     }
 
 }
