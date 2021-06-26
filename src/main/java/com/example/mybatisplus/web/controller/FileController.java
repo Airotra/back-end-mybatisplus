@@ -77,4 +77,19 @@ public class FileController {
         return JsonResponse.success(toClient);
     }
 
+    @RequestMapping("/delPicture")
+    public JsonResponse delPicture(String url, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        String path = "file/" + url.substring(1, url.length());
+        File filePic = new File(path);
+        if (filePic.exists()) {
+            filePic.delete();
+            return JsonResponse.success(true);
+        }
+        else {
+            return JsonResponse.success(false);
+        }
+    }
+
 }
