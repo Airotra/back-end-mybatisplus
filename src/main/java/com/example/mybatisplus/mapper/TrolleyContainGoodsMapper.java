@@ -2,6 +2,7 @@ package com.example.mybatisplus.mapper;
 
 import com.example.mybatisplus.model.domain.TrolleyContainGoods;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TrolleyContainGoodsMapper extends BaseMapper<TrolleyContainGoods> {
 
+    TrolleyContainGoods getByFKs(@Param("id") Long id,@Param("goodsId") Long goodsId);
 }

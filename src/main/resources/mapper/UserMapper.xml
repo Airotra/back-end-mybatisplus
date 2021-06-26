@@ -74,6 +74,7 @@
          SELECT * FROM coupon WHERE coupon_id NOT IN (SELECT coupon_id FROM user_coupon_has)
     </select>
 
+    <!-- syan  -->
     <select id="myGetById" resultMap="BaseResultMap">
         select * from user where user_id = #{id}
     </select>

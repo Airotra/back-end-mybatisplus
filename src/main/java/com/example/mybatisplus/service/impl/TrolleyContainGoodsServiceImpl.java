@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TrolleyContainGoodsServiceImpl extends ServiceImpl<TrolleyContainGoodsMapper, TrolleyContainGoods> implements TrolleyContainGoodsService {
 
+    @Override
+    public TrolleyContainGoods getByFKs(Long id, Long goodsId) {
+        return baseMapper.getByFKs(id,goodsId);
+    }
 }

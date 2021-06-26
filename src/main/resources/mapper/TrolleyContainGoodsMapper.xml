@@ -4,12 +4,19 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.TrolleyContainGoods">
-        <id column="trolley_id" property="trolleyId" />
+        <id column="trolley_id" property="id" />
         <result column="goods_id" property="goodsId" />
         <result column="goods_number" property="goodsNumber" />
         <result column="goods_name" property="goodsName" />
         <result column="goods_price" property="goodsPrice" />
         <result column="goods_picture" property="goodsPicture" />
     </resultMap>
+
+    <!--    syan  -->
+    <select id="getByFKs" resultMap="BaseResultMap">
+        select * from trolley_contain_goods where
+        trolley_id = #{id} and
+        goods_id = #{goodsId}
+    </select>
 
 </mapper>

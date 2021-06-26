@@ -3,6 +3,7 @@ package com.example.mybatisplus.web.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.model.dto.GoodsDTO;
+import com.example.mybatisplus.model.dto.TrolleyContainsGoodsDTO;
 import com.example.mybatisplus.model.dto.TrolleyDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -118,7 +119,20 @@ public class TrolleyContainGoodsController {
         boolean update = trolleyContainGoodsService.update(trolleyContainGoods, wrapper);
 
         return JsonResponse.success(update);
-
     }
+
+    /*
+    * syan
+    * 根据trolleyId和goodsId查询单条记录
+    */
+    @PostMapping("/getByFKs")
+    @ResponseBody
+    public JsonResponse getByFKs(@RequestBody TrolleyContainsGoodsDTO trolleyContainsGoodsDTO,HttpServletResponse httpServletResponse){
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        TrolleyContainGoods trolleyContainGoods = trolleyContainGoodsService.getByFKs(trolleyContainsGoodsDTO.getId(),
+                trolleyContainsGoodsDTO.getGoodsId());
+        return JsonResponse.success(trolleyContainGoods);
+    }
+
 }
 
