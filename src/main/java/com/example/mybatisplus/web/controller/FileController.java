@@ -1,6 +1,7 @@
 package com.example.mybatisplus.web.controller;
 
 
+import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.common.utls.SecurityUtils;
 import com.example.mybatisplus.common.utls.SessionUtils;
 import com.example.mybatisplus.service.FileService;
@@ -9,13 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +47,34 @@ public class FileController {
     private static String suffix(String fileName) {
         int i = fileName.lastIndexOf('.');
         return i == -1 ? "" : fileName.substring(i + 1);
+    }
+
+    @RequestMapping("/picture")
+    public JsonResponse getPicture(String url, HttpServletResponse response) throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        String path = "file/" + url.substring(1, url.length());
+        FileInputStream is = null;
+        OutputStream toClient = null;
+        File filePic = new File(path);
+        if (filePic.exists()) {
+            try {
+                is = new FileInputStream(filePic);
+            } catch (FileNotFoundException e) {
+                throw e;
+            }
+        }
+        if (is != null) {
+            int size = is.available();
+            byte data[] = new byte[size];
+            is.read(data);
+            is.close();
+            toClient = response.getOutputStream();
+            toClient.write(data);
+            toClient.close();
+        }
+
+        return JsonResponse.success(toClient);
     }
 
 }
