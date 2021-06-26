@@ -106,7 +106,7 @@ public class TrolleyContainGoodsController {
         return JsonResponse.success(remove);
     }
 
-    // 更新购物车中商品信息 tu
+    // 更新购物车中商品信息
     @GetMapping("/updateGoods")
     @ResponseBody
     public JsonResponse updateGoods(TrolleyDTO trolleyDTO,HttpServletResponse response){

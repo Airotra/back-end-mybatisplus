@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.OrderListMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.OrderList">
+        <id column="order_id" property="orderId" />
+        <result column="adress_id" property="adressId" />
+        <result column="user_id" property="userId" />
+        <result column="transport_number" property="transportNumber" />
+        <result column="get_by_self" property="getBySelf" />
+        <result column="paid" property="paid" />
+        <result column="order_status" property="orderStatus" />
+    </resultMap>
+
+</mapper>

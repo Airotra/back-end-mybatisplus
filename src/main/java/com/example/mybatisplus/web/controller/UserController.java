@@ -184,6 +184,20 @@ public class UserController {
         return JsonResponse.success(list);
     }
 
+    // 更新用户的积分信息
+    @GetMapping("/updatePoint")
+    @ResponseBody
+    public JsonResponse updateGoods(Long id, int point,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(User::getId,id);
+        User user = new User();
+        user.setPoint(point);
+        boolean update = userService.update(user, wrapper);
+        return JsonResponse.success(update);
+
+    }
+
     /*
     * syan
     * 根据id获取trolleyId

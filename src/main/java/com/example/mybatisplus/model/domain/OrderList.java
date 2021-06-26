@@ -15,33 +15,35 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
+ * ������
  * </p>
  *
  * @author lxp
- * @since 2021-06-22
+ * @since 2021-06-25
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="TrolleyContainGoods对象", description="")
-public class TrolleyContainGoods extends Model<TrolleyContainGoods> {
+@ApiModel(value="OrderList对象", description="������")
+public class OrderList extends Model<OrderList> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "trolley_id",type= IdType.ASSIGN_ID )
+    @TableId(value = "order_id",type= IdType.ASSIGN_ID )
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    private Long goodsId;
+    private Long adressId;
 
-    private Integer goodsNumber;
+    private Long userId;
 
-    private String goodsName;
+    private String transportNumber;
 
-    private Double goodsPrice;
+    private Boolean getBySelf;
 
-    private String goodsPicture;
+    private Boolean paid;
+
+    private Integer orderStatus;
 
 
     @Override
