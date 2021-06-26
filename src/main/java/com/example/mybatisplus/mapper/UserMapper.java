@@ -3,6 +3,7 @@ package com.example.mybatisplus.mapper;
 import com.example.mybatisplus.model.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.mybatisplus.model.vo.UserVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface UserMapper extends BaseMapper<User> {
     UserVo getUserCoupon(Long id);
 
     List getCoupon(Long id);
+
+    User myGetById(@Param("id") long parseLong);
 }

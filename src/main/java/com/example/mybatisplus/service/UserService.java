@@ -23,4 +23,6 @@ public interface UserService extends IService<User> {
     UserVo getUserCoupon(Long id);
 
     List getCoupon(Long id);
+
+    User myGetById(long parseLong);
 }

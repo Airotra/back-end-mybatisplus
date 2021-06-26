@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.mybatisplus.common.utls.SessionUtils;
 import com.example.mybatisplus.model.domain.Coupon;
 import com.example.mybatisplus.model.domain.Trolley;
+import com.example.mybatisplus.model.dto.UserInfoDTO;
 import com.example.mybatisplus.model.vo.UserVo;
 import com.example.mybatisplus.service.TrolleyService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -181,6 +182,18 @@ public class UserController {
         List<Coupon> list = userService.getCoupon(id);
 
         return JsonResponse.success(list);
+    }
+
+    /*
+    * syan
+    * 根据id获取trolleyId
+    */
+    @GetMapping("/getTrolleyIdByUserId")
+    @ResponseBody
+    public JsonResponse getTrolleyIdByUserId(@RequestParam("id") Long id,HttpServletResponse httpServletResponse){
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        Long trolleyId = userService.myGetById(id).getTrolleyId();
+        return JsonResponse.success(trolleyId);
     }
 
 }

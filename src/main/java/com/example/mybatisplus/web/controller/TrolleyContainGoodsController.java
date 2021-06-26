@@ -77,7 +77,7 @@ public class TrolleyContainGoodsController {
     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResponse create(TrolleyContainGoods  trolleyContainGoods) throws Exception {
+    public JsonResponse create(@RequestBody TrolleyContainGoods  trolleyContainGoods) throws Exception {
         trolleyContainGoodsService.save(trolleyContainGoods);
         return JsonResponse.success(null);
     }

@@ -13,7 +13,7 @@
         <result column="avatar" property="avatar" />
         <result column="type" property="type" />
     </resultMap>
-    
+
     <resultMap id="AddrResult" type="com.example.mybatisplus.model.vo.UserVo">
         <id column="user_id" property="id" />
         <result column="trolley_id" property="trolleyId" />
@@ -72,6 +72,10 @@
 
     <select id="getCoupon" resultMap="CouponResult">
          SELECT * FROM coupon WHERE coupon_id NOT IN (SELECT coupon_id FROM user_coupon_has)
+    </select>
+
+    <select id="myGetById" resultMap="BaseResultMap">
+        select * from user where user_id = #{id}
     </select>
 
 </mapper>

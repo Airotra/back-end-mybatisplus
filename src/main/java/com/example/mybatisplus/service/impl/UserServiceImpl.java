@@ -36,4 +36,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List getCoupon(Long id) {
         return baseMapper.getCoupon(id);
     }
+
+    @Override
+    public User myGetById(long parseLong) {
+        return baseMapper.myGetById(parseLong);
+    }
 }

@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.mapper.GoodsMapper;
 import com.example.mybatisplus.model.domain.Admin;
-import com.example.mybatisplus.model.domain.TrolleyContainGoods;
 import com.example.mybatisplus.model.dto.GoodsDTO;
 import com.example.mybatisplus.model.dto.GoodsDeleteDTO;
 import freemarker.ext.beans.TemplateAccessible;
