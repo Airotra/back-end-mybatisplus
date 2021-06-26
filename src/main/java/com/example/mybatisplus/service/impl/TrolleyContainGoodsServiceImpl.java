@@ -21,4 +21,9 @@ public class TrolleyContainGoodsServiceImpl extends ServiceImpl<TrolleyContainGo
     public TrolleyContainGoods getByFKs(Long id, Long goodsId) {
         return baseMapper.getByFKs(id,goodsId);
     }
+
+    @Override
+    public void updateTrolleyContainGoodsNumber(TrolleyContainGoods trolleyContainGoods) {
+         baseMapper.updateTrolleyContainGoodsNumber(trolleyContainGoods);
+    }
 }

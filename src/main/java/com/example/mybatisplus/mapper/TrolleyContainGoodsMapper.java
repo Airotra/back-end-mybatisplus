@@ -15,4 +15,6 @@ import org.apache.ibatis.annotations.Param;
 public interface TrolleyContainGoodsMapper extends BaseMapper<TrolleyContainGoods> {
 
     TrolleyContainGoods getByFKs(@Param("id") Long id,@Param("goodsId") Long goodsId);
+
+    void updateTrolleyContainGoodsNumber(@Param("trolleyContainGoods") TrolleyContainGoods trolleyContainGoods);
 }

@@ -133,6 +133,17 @@ public class TrolleyContainGoodsController {
                 trolleyContainsGoodsDTO.getGoodsId());
         return JsonResponse.success(trolleyContainGoods);
     }
-
+    /*
+    * syan
+    * 更新购物车中商品的数量
+    */
+    @PostMapping("/updateTrolleyContainGoodsNumber")
+    @ResponseBody
+    public JsonResponse updateTrolleyContainGoods(@RequestBody TrolleyContainGoods trolleyContainGoods,
+                                                  HttpServletResponse httpServletResponse){
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+        trolleyContainGoodsService.updateTrolleyContainGoodsNumber(trolleyContainGoods);
+        return JsonResponse.success(null);
+    }
 }
 

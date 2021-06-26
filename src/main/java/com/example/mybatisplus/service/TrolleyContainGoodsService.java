@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface TrolleyContainGoodsService extends IService<TrolleyContainGoods> {
 
     TrolleyContainGoods getByFKs(Long id, Long goodsId);
+
+    void updateTrolleyContainGoodsNumber(TrolleyContainGoods trolleyContainGoods);
 }

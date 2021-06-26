@@ -18,5 +18,10 @@
         trolley_id = #{id} and
         goods_id = #{goodsId}
     </select>
+    <update id="updateTrolleyContainGoodsNumber">
+        update trolley_contain_goods set goods_number = #{trolleyContainGoods.goodsNumber}
+        where trolley_id = #{trolleyContainGoods.id} and
+              goods_id = #{trolleyContainGoods.goodsId}
+    </update>
 
 </mapper>
