@@ -140,11 +140,6 @@ public class GoodsController {
         Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()),wrapper);
         return JsonResponse.success(page);
     }
-    /**
-     * 描述:按id批量删除
-     * delete请求是真的垃圾，Get也是
-     */
-
     //通过id获取商品信息
     @GetMapping("/getGoods")
     @ResponseBody

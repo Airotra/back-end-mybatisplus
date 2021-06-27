@@ -16,6 +16,7 @@
         <result column="bid" property="userId" />
         <result column="comment" property="comment" />
         <result column="class" property="commentClass" />
+        <result column="comment_time" property="commentTime" />
         <association property="user" javaType="com.example.mybatisplus.model.domain.User" >
             <id column="user_id" property="id" />
             <result column="trolley_id" property="trolleyId" />
@@ -29,9 +30,25 @@
     </resultMap>
     <select id="commentList" resultMap="GoodsCommentVOMap">
         SELECT *,b.user_id as bid from goods_comment a LEFT JOIN user b on a.user_id = b.user_id
-        WHERE a.goods_id = #{commentDTO.goodsId}
-        <if test="commentDTO.commentClass gte 1 and commentDTO.commentClass lte 5">
-            and a.class = #{commentDTO.commentClass}
+        <where>
+            <if test="commentDTO.goodsId != null and commentDTO.goodsId != ''">
+                and a.goods_id = #{commentDTO.goodsId}
+            </if>
+            <if test="commentDTO.commentClass gte 1 and commentDTO.commentClass lte 5">
+                and a.class = #{commentDTO.commentClass}
+            </if>
+            <if test="commentDTO.timeDesc">
+                order by comment_time desc
+            </if>
+        </where>
+        <if test="!commentDTO.timeDesc">
+            order by comment_time asc
         </if>
     </select>
+    <delete id="deleteCommentByIds">
+        delete from goods_comment where comment_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

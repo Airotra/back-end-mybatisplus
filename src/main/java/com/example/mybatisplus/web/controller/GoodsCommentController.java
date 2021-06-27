@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.mybatisplus.model.domain.Goods;
 import com.example.mybatisplus.model.dto.CommentDTO;
+import com.example.mybatisplus.model.dto.CommentDeleteDTO;
 import com.example.mybatisplus.model.dto.GoodsDTO;
 import com.example.mybatisplus.model.vo.GoodsCommentVO;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.example.mybatisplus.service.GoodsCommentService;
 import com.example.mybatisplus.model.domain.GoodsComment;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -87,7 +89,6 @@ public class GoodsCommentController {
     /**
      * 描述:根据条件查询评论列表，实现分页器和等级查询
      * 多表联合查询，要同时查出user的基本信息
-     * 接受GET请求
      */
     @PostMapping("/listByPage")
     @ResponseBody
@@ -96,6 +97,19 @@ public class GoodsCommentController {
         Page<GoodsCommentVO> page;
         page = goodsCommentService.commentList(new Page<>(commentDTO.getPageNo(),commentDTO.getPageSize()),commentDTO);
         return JsonResponse.success(page);
+    }
+
+    /**
+     * 描述:根据id列表批量删除
+     * 接受Post请求
+     */
+    @PostMapping("/deleteCommentByList")
+    @ResponseBody
+    public JsonResponse deleteCommentByList(@RequestBody CommentDeleteDTO commentDeleteDTO, HttpServletResponse httpServletResponse){
+        httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
+        List<Long> ids = commentDeleteDTO.getIds();
+        goodsCommentService.deleteCommentByIds(ids);
+        return JsonResponse.success(null);
     }
 
 }

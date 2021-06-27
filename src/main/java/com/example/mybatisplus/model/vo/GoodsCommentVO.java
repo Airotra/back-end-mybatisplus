@@ -6,17 +6,6 @@ import com.example.mybatisplus.model.domain.User;
 import lombok.Data;
 
 @Data
-public class GoodsCommentVO {
-    private Long commentId;
-
-    private Long goodsId;
-
-    private Long userId;
-
-    private String comment;
-
-    @TableField("class")
-    private Integer commentClass;
-
+public class GoodsCommentVO extends GoodsComment{
     private User user;
 }

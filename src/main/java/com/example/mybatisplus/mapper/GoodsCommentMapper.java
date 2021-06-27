@@ -7,6 +7,8 @@ import com.example.mybatisplus.model.dto.CommentDTO;
 import com.example.mybatisplus.model.vo.GoodsCommentVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -17,4 +19,6 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface GoodsCommentMapper extends BaseMapper<GoodsComment> {
     <T> Page<GoodsCommentVO> commentList(Page<T> tPage, @Param("commentDTO") CommentDTO commentDTO);
+
+    void deleteCommentByIds(@Param("ids") List<Long> ids);
 }

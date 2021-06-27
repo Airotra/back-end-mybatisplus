@@ -8,4 +8,5 @@ public class CommentDTO {
     private Integer commentClass;
     private Integer pageNo = 1;
     private Integer pageSize = 10;
+    private boolean timeDesc = false;
 }

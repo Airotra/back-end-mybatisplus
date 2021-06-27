@@ -9,6 +9,8 @@ import com.example.mybatisplus.service.GoodsCommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -23,5 +25,10 @@ public class GoodsCommentServiceImpl extends ServiceImpl<GoodsCommentMapper, Goo
     @Override
     public <T> Page<GoodsCommentVO> commentList(Page<T> tPage, CommentDTO commentDTO) {
         return baseMapper.commentList(tPage,commentDTO);
+    }
+
+    @Override
+    public void deleteCommentByIds(List<Long> ids) {
+        baseMapper.deleteCommentByIds(ids);
     }
 }

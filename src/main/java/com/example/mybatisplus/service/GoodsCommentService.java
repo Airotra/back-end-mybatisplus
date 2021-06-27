@@ -7,6 +7,8 @@ import com.example.mybatisplus.model.dto.CommentDTO;
 import com.example.mybatisplus.model.vo.GoodsCommentVO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -18,4 +20,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GoodsCommentService extends IService<GoodsComment> {
     <T> Page<GoodsCommentVO> commentList(Page<T> tPage, CommentDTO commentDTO);
+
+    void deleteCommentByIds(List<Long> ids);
 }
