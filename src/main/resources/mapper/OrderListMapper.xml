@@ -11,6 +11,7 @@
         <result column="get_by_self" property="getBySelf" />
         <result column="paid" property="paid" />
         <result column="order_status" property="orderStatus" />
+        <result column="order_date" property="order_date" />
     </resultMap>
 
     <resultMap id="OrderContainGoodsMap" type="com.example.mybatisplus.model.vo.OrderContainGoodsVO">
@@ -21,12 +22,14 @@
         <result column="get_by_self" property="getBySelf" />
         <result column="paid" property="paid" />
         <result column="order_status" property="orderStatus" />
+        <result column="order_date" property="order_date" />
         <collection property="list" ofType="com.example.mybatisplus.model.domain.OrderContainGoods">
             <result column="goods_id" property="goodsId" />
             <result column="goods_number" property="goodsNumber" />
             <result column="goods_name" property="goodsName" />
             <result column="goods_price" property="goodsPrice" />
             <result column="goods_picture" property="goodsPicture" />
+            <result column="comment" property="comment" />
         </collection>
     </resultMap>
 

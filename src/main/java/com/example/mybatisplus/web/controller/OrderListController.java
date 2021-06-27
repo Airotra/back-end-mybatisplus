@@ -65,7 +65,7 @@ public class OrderListController {
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateOrderList(@PathVariable("id") Long  id,OrderList  orderList) throws Exception {
+    public JsonResponse updateOrderList(@PathVariable("id") Long  id,@RequestBody OrderList  orderList) throws Exception {
         orderList.setId(id);
         orderListService.updateById(orderList);
         return JsonResponse.success(null);

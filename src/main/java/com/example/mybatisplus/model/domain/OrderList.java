@@ -52,7 +52,6 @@ public class OrderList extends Model<OrderList> {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime order_date;
 
-
     @Override
     protected Serializable pkVal() {
         return this.id;

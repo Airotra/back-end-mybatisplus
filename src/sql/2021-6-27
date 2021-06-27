@@ -11,3 +11,6 @@ ALTER TABLE order_contain_goods ADD goods_price DOUBLE;
 
 -- 给订单表添加商品图片的信息
 ALTER TABLE order_contain_goods ADD goods_picture varchar(50);
+
+-- 给订单表添加商品评论的信息
+ALTER TABLE order_contain_goods ADD comment bool;

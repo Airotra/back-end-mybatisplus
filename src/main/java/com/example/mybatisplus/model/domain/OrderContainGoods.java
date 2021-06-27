@@ -44,6 +44,7 @@ public class OrderContainGoods extends Model<OrderContainGoods> {
 
     private String goodsPicture;
 
+    private Boolean comment;
 
     @Override
     protected Serializable pkVal() {
