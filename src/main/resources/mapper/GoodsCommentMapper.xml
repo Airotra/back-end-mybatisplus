@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mybatisplus.mapper.GoodsCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.GoodsComment">
+        <id column="comment_id" property="commentId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="user_id" property="userId" />
+        <result column="comment" property="comment" />
+        <result column="class" property="class" />
+    </resultMap>
+    <resultMap id="GoodsCommentVOMap" type="com.example.mybatisplus.model.vo.GoodsCommentVO">
+        <id column="comment_id" property="commentId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="bid" property="userId" />
+        <result column="comment" property="comment" />
+        <result column="class" property="commentClass" />
+        <association property="user" javaType="com.example.mybatisplus.model.domain.User" >
+            <id column="user_id" property="id" />
+            <result column="trolley_id" property="trolleyId" />
+            <result column="nick_name" property="nickName" />
+            <result column="phone_number" property="phoneNumber" />
+            <result column="password" property="password" />
+            <result column="point" property="point" />
+            <result column="avatar" property="avatar" />
+            <result column="type" property="type" />
+        </association>
+    </resultMap>
+    <select id="commentList" resultMap="GoodsCommentVOMap">
+        SELECT *,b.user_id as bid from goods_comment a LEFT JOIN user b on a.user_id = b.user_id
+        WHERE a.goods_id = #{commentDTO.goodsId}
+        <if test="commentDTO.commentClass gte 1 and commentDTO.commentClass lte 5">
+            and a.class = #{commentDTO.commentClass}
+        </if>
+    </select>
+</mapper>
