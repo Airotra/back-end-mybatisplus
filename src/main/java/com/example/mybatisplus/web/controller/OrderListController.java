@@ -3,6 +3,7 @@ package com.example.mybatisplus.web.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.model.domain.TrolleyContainGoods;
 import com.example.mybatisplus.model.dto.TrolleyDTO;
+import com.example.mybatisplus.model.vo.OrderContainGoodsVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import com.example.mybatisplus.service.OrderListService;
 import com.example.mybatisplus.model.domain.OrderList;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -83,10 +85,28 @@ public class OrderListController {
 
     @GetMapping("/getOrder")
     @ResponseBody
-    public JsonResponse removeGoods(Long id,HttpServletResponse response){
+    public JsonResponse getOrderById(Long id,HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
         OrderList order = orderListService.getById(id);
         return JsonResponse.success(order);
+    }
+
+    @GetMapping("/getOrderListByUserId")
+    @ResponseBody
+    public JsonResponse getOrderByUserId(Long id,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        List<OrderList> orderList = orderListService.getOrderByUserId(id);
+        return JsonResponse.success(orderList);
+    }
+
+    @RequestMapping("/getGoods")
+    @ResponseBody
+    public JsonResponse getGoods(Long id, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        OrderContainGoodsVO goodsVO = orderListService.getGoods(id);
+
+        return JsonResponse.success(goodsVO);
     }
 
 }

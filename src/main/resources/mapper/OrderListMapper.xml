@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.OrderList">
-        <id column="order_id" property="orderId" />
+        <id column="order_id" property="id" />
         <result column="adress_id" property="adressId" />
         <result column="user_id" property="userId" />
         <result column="transport_number" property="transportNumber" />
@@ -12,5 +12,32 @@
         <result column="paid" property="paid" />
         <result column="order_status" property="orderStatus" />
     </resultMap>
+
+    <resultMap id="OrderContainGoodsMap" type="com.example.mybatisplus.model.vo.OrderContainGoodsVO">
+        <id column="order_id" property="id" />
+        <result column="adress_id" property="adressId" />
+        <result column="user_id" property="userId" />
+        <result column="transport_number" property="transportNumber" />
+        <result column="get_by_self" property="getBySelf" />
+        <result column="paid" property="paid" />
+        <result column="order_status" property="orderStatus" />
+        <collection property="list" ofType="com.example.mybatisplus.model.domain.OrderContainGoods">
+            <result column="goods_id" property="goodsId" />
+            <result column="goods_number" property="goodsNumber" />
+            <result column="goods_name" property="goodsName" />
+            <result column="goods_price" property="goodsPrice" />
+            <result column="goods_picture" property="goodsPicture" />
+        </collection>
+    </resultMap>
+
+    <select id="getOrderByUserId" resultMap="BaseResultMap">
+        select * from order_list where user_id = #{id};
+    </select>
+
+    <select id="getGoods" resultMap="OrderContainGoodsMap">
+        SELECT * FROM order_list a
+         LEFT JOIN order_contain_goods b ON b.order_id = a.order_id
+         WHERE a.order_id = #{id}
+    </select>
 
 </mapper>
