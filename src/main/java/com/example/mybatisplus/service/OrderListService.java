@@ -2,6 +2,9 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.model.domain.OrderList;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.mybatisplus.model.vo.OrderContainGoodsVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface OrderListService extends IService<OrderList> {
 
+    List<OrderList> getOrderByUserId(Long id);
+
+    OrderContainGoodsVO getGoods(Long id);
 }
