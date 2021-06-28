@@ -18,6 +18,10 @@ import com.example.mybatisplus.service.GoodsCommentService;
 import com.example.mybatisplus.model.domain.GoodsComment;
 
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.List;
 
 
@@ -97,6 +101,14 @@ public class GoodsCommentController {
         Page<GoodsCommentVO> page;
         page = goodsCommentService.commentList(new Page<>(commentDTO.getPageNo(),commentDTO.getPageSize()),commentDTO);
         return JsonResponse.success(page);
+    }
+
+    @RequestMapping(value = "addComment", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse addComment(@RequestBody GoodsComment  goodsComment) throws Exception {
+        goodsComment.setCommentTime(LocalDateTime.now());
+        goodsCommentService.save(goodsComment);
+        return JsonResponse.success(goodsComment);
     }
 
     /**

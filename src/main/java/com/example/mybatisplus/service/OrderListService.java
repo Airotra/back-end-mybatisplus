@@ -19,4 +19,6 @@ public interface OrderListService extends IService<OrderList> {
     List<OrderList> getOrderByUserId(Long id);
 
     OrderContainGoodsVO getGoods(Long id);
+
+    List getAllOrderList();
 }

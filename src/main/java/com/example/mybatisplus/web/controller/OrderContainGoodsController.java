@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.mybatisplus.model.dto.OrderGoodsDTO;
 import com.example.mybatisplus.model.vo.OrderContainGoodsVO;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,7 @@ import java.util.List;
  *
  *
  * @author lxp
-<<<<<<< Updated upstream
  * @since 2021-06-27
-=======
- * @since 2021-06-26
->>>>>>> Stashed changes
  * @version v1.0
  */
 @Controller
@@ -67,7 +64,7 @@ public class OrderContainGoodsController {
     */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public JsonResponse updateOrderContainGoods(@PathVariable("id") Long  id,OrderContainGoods  orderContainGoods) throws Exception {
+    public JsonResponse updateOrderContainGoods(@PathVariable("id") Long  id,@RequestBody OrderContainGoods  orderContainGoods) throws Exception {
         orderContainGoods.setOrderId(id);
         orderContainGoodsService.updateById(orderContainGoods);
         return JsonResponse.success(null);
@@ -91,6 +88,19 @@ public class OrderContainGoodsController {
         httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
         orderContainGoodsService.InsertGoods(goodsDetails);
         return JsonResponse.success(null);
+    }
+
+    @RequestMapping(value = "/commentGoods", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse commentGoods(@RequestBody OrderContainGoods orderContainGoods, HttpServletResponse response)throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<OrderContainGoods> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(OrderContainGoods::getOrderId, orderContainGoods.getOrderId()).eq(OrderContainGoods::getGoodsId, orderContainGoods.getGoodsId());
+        OrderContainGoods one = new OrderContainGoods();
+        one.setComment(true);
+        boolean update = orderContainGoodsService.update(one, wrapper);
+        return JsonResponse.success(update);
+
     }
 }
 

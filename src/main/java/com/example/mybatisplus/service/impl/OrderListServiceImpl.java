@@ -29,4 +29,9 @@ public class OrderListServiceImpl extends ServiceImpl<OrderListMapper, OrderList
     public OrderContainGoodsVO getGoods(Long id) {
         return baseMapper.getGoods(id);
     }
+
+    @Override
+    public List getAllOrderList() {
+        return baseMapper.getAllOrderList();
+    }
 }

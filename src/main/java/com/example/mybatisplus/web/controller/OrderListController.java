@@ -111,5 +111,31 @@ public class OrderListController {
         return JsonResponse.success(goodsVO);
     }
 
+
+    @GetMapping("/getAllOrderList")
+    @ResponseBody
+    public JsonResponse getAllOrderList(HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        List<OrderList> orderList = orderListService.getAllOrderList();
+        return JsonResponse.success(orderList);
+    }
+
+    @RequestMapping(value = "/orderConfirm", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResponse orderConfirm(@RequestBody OrderList orderList, HttpServletResponse response)throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<OrderList> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(OrderList::getId, orderList.getId());
+        OrderList one = new OrderList();
+        StringBuilder transportNumber = new StringBuilder();
+        for (int i = 0; i < 11; i++) {
+            transportNumber.append((int)(Math.random()*(9-1)+1));
+        }
+        one.setTransportNumber(String.valueOf(transportNumber));
+        boolean update = orderListService.update(one, wrapper);
+        return JsonResponse.success(update);
+
+    }
+
 }
 

@@ -19,4 +19,6 @@ public interface OrderListMapper extends BaseMapper<OrderList> {
     List<OrderList> getOrderByUserId(Long id);
 
     OrderContainGoodsVO getGoods(Long id);
+
+    List getAllOrderList();
 }
