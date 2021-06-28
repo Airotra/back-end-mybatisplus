@@ -196,5 +196,23 @@ public class GoodsController {
         return JsonResponse.success(update);
     }
 
+    // 更新商品的库存
+    @GetMapping("/updatestore")
+    @ResponseBody
+    public JsonResponse updateStore(Long goodsid,int buynumber,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Goods::getGoodsId,goodsid);
+        Goods one = goodsService.getOne(wrapper);
+        Integer store = one.getStore();
+
+        Goods goods = new Goods();
+        goods.setStore(store-buynumber);
+        boolean update = goodsService.update(goods, wrapper);
+
+
+        return JsonResponse.success(update);
+    }
+
 }
 
