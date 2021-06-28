@@ -33,6 +33,7 @@ public class TrolleyContainGoods extends Model<TrolleyContainGoods> {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long goodsId;
 
     private Integer goodsNumber;
