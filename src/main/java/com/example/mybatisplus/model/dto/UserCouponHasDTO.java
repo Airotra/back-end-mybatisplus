@@ -1,12 +1,15 @@
 package com.example.mybatisplus.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class UserCouponHasDTO {
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long couponId;
 
     private Integer amount;

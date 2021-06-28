@@ -207,7 +207,7 @@ public class UserController {
     public JsonResponse getTrolleyIdByUserId(@RequestParam("id") Long id,HttpServletResponse httpServletResponse){
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         Long trolleyId = userService.myGetById(id).getTrolleyId();
-        return JsonResponse.success(trolleyId);
+        return JsonResponse.success(trolleyId.toString());
     }
 
 }
