@@ -89,7 +89,7 @@ public class TrolleyContainGoodsController {
     public JsonResponse getTrolleyGoods(TrolleyDTO trolleyDTO,HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
         QueryWrapper<TrolleyContainGoods> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(TrolleyContainGoods::getId,trolleyDTO.id);
+        wrapper.lambda().eq(TrolleyContainGoods::getId,trolleyDTO.getId());
         Page<TrolleyContainGoods> page = trolleyContainGoodsService.page(new Page<>(trolleyDTO.getPageNo(),trolleyDTO.getPageSize()),wrapper);
         return JsonResponse.success(page);
     }
@@ -101,7 +101,7 @@ public class TrolleyContainGoodsController {
     public JsonResponse removeGoods(TrolleyDTO trolleyDTO,HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
         QueryWrapper<TrolleyContainGoods> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(TrolleyContainGoods::getId,trolleyDTO.id).eq(TrolleyContainGoods::getGoodsId, trolleyDTO.goodsid);
+        wrapper.lambda().eq(TrolleyContainGoods::getId,trolleyDTO.getId()).eq(TrolleyContainGoods::getGoodsId, trolleyDTO.getGoodsid());
         boolean remove = trolleyContainGoodsService.remove(wrapper);
         return JsonResponse.success(remove);
     }
@@ -112,10 +112,10 @@ public class TrolleyContainGoodsController {
     public JsonResponse updateGoods(TrolleyDTO trolleyDTO,HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
         QueryWrapper<TrolleyContainGoods> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(TrolleyContainGoods::getGoodsId, trolleyDTO.goodsid).eq(TrolleyContainGoods::getId,trolleyDTO.id);
+        wrapper.lambda().eq(TrolleyContainGoods::getGoodsId, trolleyDTO.getGoodsid()).eq(TrolleyContainGoods::getId,trolleyDTO.getId());
 
         TrolleyContainGoods trolleyContainGoods = new TrolleyContainGoods();
-        trolleyContainGoods.setGoodsNumber(trolleyDTO.goodsnumber);
+        trolleyContainGoods.setGoodsNumber(trolleyDTO.getGoodsnumber());
         boolean update = trolleyContainGoodsService.update(trolleyContainGoods, wrapper);
 
         return JsonResponse.success(update);

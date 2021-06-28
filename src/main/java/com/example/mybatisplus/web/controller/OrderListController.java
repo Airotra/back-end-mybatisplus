@@ -15,6 +15,7 @@ import com.example.mybatisplus.service.OrderListService;
 import com.example.mybatisplus.model.domain.OrderList;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -79,8 +80,9 @@ public class OrderListController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
     public JsonResponse create(@RequestBody OrderList  orderList) throws Exception {
+        orderList.setOrder_date(LocalDateTime.now());
         orderListService.save(orderList);
-        return JsonResponse.success(null);
+        return JsonResponse.success(orderList);
     }
 
     @GetMapping("/getOrder")

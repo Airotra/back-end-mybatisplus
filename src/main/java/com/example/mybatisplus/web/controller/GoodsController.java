@@ -140,14 +140,7 @@ public class GoodsController {
         Page<Goods> page = goodsService.page(new Page<>(goodsDTO.getPageNo(),goodsDTO.getPageSize()),wrapper);
         return JsonResponse.success(page);
     }
-    //通过id获取商品信息
-    @GetMapping("/getGoods")
-    @ResponseBody
-    public JsonResponse getGoods(Long id, HttpServletResponse response){
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        Goods good = goodsService.getById(id);
-        return JsonResponse.success(good);
-    }
+
     /**
      * 描述:按id批量删除
      * delete请求是真的垃圾，Get也是
@@ -175,6 +168,32 @@ public class GoodsController {
             else wrapper.lambda().select().orderByAsc(Goods::getPurchaseTimes);
         }
 
+    }
+
+    //通过id获取商品信息
+    @GetMapping("/getGoods")
+    @ResponseBody
+    public JsonResponse getGoods(Long goodsid, HttpServletResponse response){
+        System.out.println(goodsid);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Goods::getGoodsId, goodsid);
+        Goods one = goodsService.getOne(wrapper);
+        return JsonResponse.success(one);
+    }
+
+    // 更新商品的购买次数
+    @GetMapping("/updatePurchaseTimes")
+    @ResponseBody
+    public JsonResponse updatePurchaseTimes(Long goodsid, int purchaseTimes, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        QueryWrapper<Goods> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(Goods::getGoodsId, goodsid);
+        Goods goods = new Goods();
+        goods.setPurchaseTimes(purchaseTimes);
+        boolean update = goodsService.update(goods, wrapper);
+
+        return JsonResponse.success(update);
     }
 
 }

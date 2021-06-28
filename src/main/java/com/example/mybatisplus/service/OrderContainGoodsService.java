@@ -2,7 +2,9 @@ package com.example.mybatisplus.service;
 
 import com.example.mybatisplus.model.domain.OrderContainGoods;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.mybatisplus.model.vo.OrderContainGoodsVO;
+import com.example.mybatisplus.model.dto.OrderGoodsDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -10,8 +12,8 @@ import com.example.mybatisplus.model.vo.OrderContainGoodsVO;
  * </p>
  *
  * @author lxp
- * @since 2021-06-27
+ * @since 2021-06-26
  */
 public interface OrderContainGoodsService extends IService<OrderContainGoods> {
-
+    void InsertGoods(List<OrderGoodsDTO> goodsDetails);
 }

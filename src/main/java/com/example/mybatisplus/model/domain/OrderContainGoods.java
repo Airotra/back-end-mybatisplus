@@ -1,5 +1,6 @@
 package com.example.mybatisplus.model.domain;
 
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -13,14 +14,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author lxp
- * @since 2021-06-27
- */
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
@@ -29,9 +23,8 @@ public class OrderContainGoods extends Model<OrderContainGoods> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "order_id",type= IdType.ASSIGN_ID )
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private Long orderId;
 
     @JsonSerialize(using = ToStringSerializer.class)
     private Long goodsId;
@@ -48,7 +41,7 @@ public class OrderContainGoods extends Model<OrderContainGoods> {
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.orderId;
     }
 
 }

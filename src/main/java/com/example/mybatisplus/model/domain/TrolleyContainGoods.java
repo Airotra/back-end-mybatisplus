@@ -42,6 +42,7 @@ public class TrolleyContainGoods extends Model<TrolleyContainGoods> {
 
     private Double goodsPrice;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private String goodsPicture;
 
 

@@ -14,6 +14,8 @@ import com.example.mybatisplus.common.JsonResponse;
 import com.example.mybatisplus.service.UserCouponHasService;
 import com.example.mybatisplus.model.domain.UserCouponHas;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -95,6 +97,18 @@ public class UserCouponHasController {
         boolean update = userCouponHasService.update(userCoupon, wrapper);
 
         return JsonResponse.success(update);
+    }
+
+    // 用户使用优惠券后移除优惠券
+    @RequestMapping("/removeUserCoupon")
+    @ResponseBody
+    public JsonResponse removeUserCoupon(Long userid, Long couponid, HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+
+        QueryWrapper<UserCouponHas> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UserCouponHas::getUserId, userid).eq(UserCouponHas::getCouponId, couponid);
+        boolean remove = userCouponHasService.remove(wrapper);
+        return JsonResponse.success(remove);
     }
 }
 

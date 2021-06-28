@@ -1,5 +1,6 @@
 package com.example.mybatisplus.web.controller;
 
+import com.example.mybatisplus.model.dto.OrderGoodsDTO;
 import com.example.mybatisplus.model.vo.OrderContainGoodsVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import com.example.mybatisplus.service.OrderContainGoodsService;
 import com.example.mybatisplus.model.domain.OrderContainGoods;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -20,7 +22,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  *
  * @author lxp
+<<<<<<< Updated upstream
  * @since 2021-06-27
+=======
+ * @since 2021-06-26
+>>>>>>> Stashed changes
  * @version v1.0
  */
 @Controller
@@ -62,7 +68,7 @@ public class OrderContainGoodsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public JsonResponse updateOrderContainGoods(@PathVariable("id") Long  id,OrderContainGoods  orderContainGoods) throws Exception {
-        orderContainGoods.setId(id);
+        orderContainGoods.setOrderId(id);
         orderContainGoodsService.updateById(orderContainGoods);
         return JsonResponse.success(null);
     }
@@ -74,8 +80,16 @@ public class OrderContainGoodsController {
     */
     @RequestMapping(value = "", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResponse create(OrderContainGoods  orderContainGoods) throws Exception {
+    public JsonResponse create(@RequestBody OrderContainGoods  orderContainGoods) throws Exception {
         orderContainGoodsService.save(orderContainGoods);
+        return JsonResponse.success(orderContainGoods);
+    }
+
+    @PostMapping("/insertGoodsByList")
+    @ResponseBody
+    public JsonResponse insertGoodsByList(@RequestBody List<OrderGoodsDTO> goodsDetails, HttpServletResponse httpServletResponse){
+        httpServletResponse.setHeader("Access-Control-Allow-Origin","*");
+        orderContainGoodsService.InsertGoods(goodsDetails);
         return JsonResponse.success(null);
     }
 }

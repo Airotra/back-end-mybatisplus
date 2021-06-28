@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.mybatisplus.model.domain.OrderContainGoods">
-        <id column="order_id" property="id" />
+        <id column="order_id" property="orderId" />
         <result column="goods_id" property="goodsId" />
         <result column="goods_number" property="goodsNumber" />
         <result column="goods_name" property="goodsName" />
@@ -12,5 +12,11 @@
         <result column="goods_picture" property="goodsPicture" />
     </resultMap>
 
+    <insert id="InsertGoods">
+     insert ignore into order_contain_goods(order_id,goods_id,goods_number,goods_name,goods_price,goods_picture) values
+     <foreach collection="goodsDetails" item="goods" index="index" separator=",">
+         (#{goods.orderId},#{goods.goodsId},#{goods.goodsNumber},#{goods.goodsName},#{goods.goodsPrice},#{goods.goodsPicture})
+     </foreach>
+    </insert>
 
 </mapper>
