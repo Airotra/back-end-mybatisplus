@@ -38,8 +38,10 @@ public class GoodsComment extends Model<GoodsComment> {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long commentId;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long goodsId;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
     private String comment;

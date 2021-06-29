@@ -36,6 +36,7 @@ public class Adress extends Model<Adress> {
     private Long id;
 
     @TableField(value = "user_id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
     private String nation;
