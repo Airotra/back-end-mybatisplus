@@ -53,7 +53,6 @@ public class GoodsComment extends Model<GoodsComment> {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private LocalDateTime commentTime;
 
-
     @Override
     protected Serializable pkVal() {
         return this.commentId;
